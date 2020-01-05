@@ -24,5 +24,9 @@ tasks.jar {
 			from("${project(":janot-native").buildDir}/lib/main/debug/libjanot-native.so")
 			into("${project.buildDir}/libs")
 		}
+		copy {
+			from("start.sh")
+			into("${project.buildDir}/libs")
+		}
 	}
 }
