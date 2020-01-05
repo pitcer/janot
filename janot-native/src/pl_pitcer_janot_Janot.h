@@ -15,6 +15,14 @@ extern "C" {
 JNIEXPORT void JNICALL Java_pl_pitcer_janot_Janot_helloJanot
   (JNIEnv *, jclass);
 
+/*
+ * Class:     pl_pitcer_janot_Janot
+ * Method:    sendNotification
+ * Signature: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_pl_pitcer_janot_Janot_sendNotification
+  (JNIEnv *, jclass, jstring, jstring, jstring);
+
 #ifdef __cplusplus
 }
 #endif

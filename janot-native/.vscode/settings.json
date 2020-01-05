@@ -1,0 +1,12 @@
+{
+	"C_Cpp.default.includePath": [
+		"/usr/lib/jvm/default/include",
+		"/usr/lib/jvm/default/include/linux",
+		"/usr/include/gdk-pixbuf-2.0",
+		"/usr/include/glib-2.0",
+		"/usr/lib/glib-2.0/include",
+		"/usr/lib/libffi-3.2.1/include",
+		"/usr/include/libmount",
+		"/usr/include/blkid"
+	]
+}
