@@ -5,3 +5,4 @@ out/
 *.iml
 .gradletasknamecache
 *.class
+*.pdf
