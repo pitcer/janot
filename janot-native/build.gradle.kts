@@ -66,7 +66,12 @@ library {
 tasks.register("generateHeaders") {
 	doLast {
 		exec {
-			commandLine("javac", "-h", "src", "${project(":janot-jvm").projectDir}/src/main/java/pl/pitcer/janot/Janot.java")
+			val janotPath = "${project(":janot-jvm").projectDir}/src/main/java/pl/pitcer/janot"
+			commandLine("javac", "-h", "src",
+				"$janotPath/notify/NativeNotification.java",
+				"$janotPath/notify/NativeNotify.java",
+				"$janotPath/notify/NotificationUrgency.java"
+			)
 		}
 	}
 }

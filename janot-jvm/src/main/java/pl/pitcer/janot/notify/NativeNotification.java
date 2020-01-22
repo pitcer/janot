@@ -22,19 +22,45 @@
  * SOFTWARE.
  */
 
-package pl.pitcer.janot;
+package pl.pitcer.janot.notify;
 
-public final class Janot {
+import java.nio.ByteBuffer;
+
+final class NativeNotification {
 
 	static {
 		System.loadLibrary("janot-native");
 	}
 
-	private Janot() {
+	private NativeNotification() {
 		throw new UnsupportedOperationException("Cannot create an instance of this class");
 	}
 
-	public static native void helloJanot();
+	static native ByteBuffer newInstance(String summary, String body, String icon);
 
-	public static native void sendNotification(String summary, String body, String icon);
+	static native boolean update(ByteBuffer notification, String summary, String body, String icon);
+
+	static native boolean show(ByteBuffer notification, Object error);
+
+	static native void setTimeout(ByteBuffer notification, int timeout);
+
+	static native void setCategory(ByteBuffer notification, String category);
+
+	static native void setUrgency(ByteBuffer notification, NotificationUrgency urgency);
+
+	static native void setImageFromPixbuf(ByteBuffer notification, ByteBuffer pixbuf);
+
+	static native void setHint(ByteBuffer notification, String key, ByteBuffer value);
+
+	static native void setAppName(ByteBuffer notification, String appName);
+
+	static native void clearHints(ByteBuffer notification);
+
+	static native void addAction(ByteBuffer notification, String action, String label, Object callback, Object userData, Object freeFunc);
+
+	static native void clearActions(ByteBuffer notification);
+
+	static native boolean close(ByteBuffer notification, Object error);
+
+	static native int getClosedReason(ByteBuffer notification);
 }

@@ -22,24 +22,39 @@
  * SOFTWARE.
  */
 
-#include "pl_pitcer_janot_Janot.h"
+package pl.pitcer.janot.notify;
 
-#include <stdio.h>
-#include <stdbool.h>
+public final class Notify {
 
-#include "libnotify_notification.h"
+	private Notify() {
+		throw new UnsupportedOperationException("Cannot create an instance of this class");
+	}
 
-JNIEXPORT void JNICALL Java_pl_pitcer_janot_Janot_helloJanot(JNIEnv* env, jclass class) {
-	printf("Hello Janot!\n");
-}
+	public static boolean init(String appName) {
+		return NativeNotify.init(appName);
+	}
 
-JNIEXPORT void JNICALL Java_pl_pitcer_janot_Janot_sendNotification(JNIEnv* env, jclass class, jstring summary, jstring body, jstring icon) {
-	JNIEnv jni_environment = *env;
-	const char* summary_chars = jni_environment->GetStringUTFChars(env, summary, false);
-	const char* body_chars = jni_environment->GetStringUTFChars(env, body, false);
-	const char* icon_chars = jni_environment->GetStringUTFChars(env, icon, false);
-	send_notification(summary_chars, body_chars, icon_chars);
-	jni_environment->ReleaseStringUTFChars(env, summary, summary_chars);
-	jni_environment->ReleaseStringUTFChars(env, body, body_chars);
-	jni_environment->ReleaseStringUTFChars(env, icon, icon_chars);
+	public static void uninit() {
+		NativeNotify.uninit();
+	}
+
+	public static boolean isInitted() {
+		return NativeNotify.isInitted();
+	}
+
+	public static String getAppName() {
+		return NativeNotify.getAppName();
+	}
+
+	public static void setAppName(String appName) {
+		NativeNotify.setAppName(appName);
+	}
+
+	public static Notification createNotification() {
+		return new NotificationImpl();
+	}
+
+	public static Notification createNotification(String summary, String body, String icon) {
+		return new NotificationImpl(summary, body, icon);
+	}
 }

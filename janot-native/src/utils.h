@@ -22,18 +22,21 @@
  * SOFTWARE.
  */
 
-package pl.pitcer.janot;
+#ifndef UTILS_HEADER
+#define UTILS_HEADER
 
-import pl.pitcer.janot.notify.Notification;
-import pl.pitcer.janot.notify.Notify;
+#include <jni.h>
 
-public final class Main {
+typedef const char* Chars;
 
-	public static void main(String[] args) {
-		Notify.init("janot");
-		Notification notification = Notify.createNotification();
-		notification.update("Test", "Test notification", "dialog-information");
-		notification.show();
-		Notify.uninit();
-	}
-}
+Chars string_to_chars(JNIEnv* jni_environment, jstring string);
+
+void release_string(JNIEnv* jni_environment, jstring string, Chars chars);
+
+jstring create_string(JNIEnv* jni_environment, Chars chars);
+
+jobject pointer_to_buffer(JNIEnv* jni_environment, void* pointer, jlong size);
+
+void* buffer_to_pointer(JNIEnv* jni_environment, jobject buffer);
+
+#endif

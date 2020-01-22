@@ -22,14 +22,39 @@
  * SOFTWARE.
  */
 
-#include "libnotify_notification.h"
+package pl.pitcer.janot.notify;
 
-#include <libnotify/notify.h>
+import java.nio.ByteBuffer;
 
-void send_notification(const char* summary, const char* body, const char* icon) {
-	notify_init("janot");
-	NotifyNotification* notification = notify_notification_new(summary, body, icon);
-	notify_notification_show(notification, NULL);
-	g_object_unref(G_OBJECT(notification));
-	notify_uninit();
+public interface Notification {
+
+	boolean update(String summary, String body, String icon);
+
+	boolean show();
+
+	boolean show(ByteBuffer error);
+
+	void setTimeout(int timeout);
+
+	void setCategory(String category);
+
+	void setUrgency(NotificationUrgency urgency);
+
+	void setImageFromPixbuf(ByteBuffer pixbuf);
+
+	void setHint(String key, ByteBuffer value);
+
+	void setAppName(String appName);
+
+	void clearHints();
+
+	void addAction(String action, String label, Object callback, Object userData, Object freeFunc);
+
+	void clearActions();
+
+	boolean close();
+
+	boolean close(ByteBuffer error);
+
+	int getClosedReason();
 }

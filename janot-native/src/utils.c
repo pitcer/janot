@@ -22,18 +22,31 @@
  * SOFTWARE.
  */
 
-package pl.pitcer.janot;
+#include "utils.h"
 
-import pl.pitcer.janot.notify.Notification;
-import pl.pitcer.janot.notify.Notify;
+#include <stdbool.h>
 
-public final class Main {
+Chars string_to_chars(JNIEnv* jni_environment, jstring string) {
+	JNIEnv native_interface = *jni_environment;
+ 	return native_interface->GetStringUTFChars(jni_environment, string, false);
+}
 
-	public static void main(String[] args) {
-		Notify.init("janot");
-		Notification notification = Notify.createNotification();
-		notification.update("Test", "Test notification", "dialog-information");
-		notification.show();
-		Notify.uninit();
-	}
+void release_string(JNIEnv* jni_environment, jstring string, Chars chars) {
+	JNIEnv native_interface = *jni_environment;
+	native_interface->ReleaseStringUTFChars(jni_environment, string, chars);
+}
+
+jstring create_string(JNIEnv* jni_environment, Chars chars) {
+	JNIEnv native_interface = *jni_environment;
+	return native_interface->NewStringUTF(jni_environment, chars);
+}
+
+jobject pointer_to_buffer(JNIEnv* jni_environment, void* pointer, jlong size) {
+	JNIEnv native_interface = *jni_environment;
+	return native_interface->NewDirectByteBuffer(jni_environment, pointer, size);
+}
+
+void* buffer_to_pointer(JNIEnv* jni_environment, jobject buffer) {
+	JNIEnv native_interface = *jni_environment;
+	return native_interface->GetDirectBufferAddress(jni_environment, buffer);
 }

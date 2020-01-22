@@ -22,4 +22,11 @@
  * SOFTWARE.
  */
 
-void send_notification(const char* summary, const char* body, const char* icon);
+package pl.pitcer.janot.notify;
+
+public enum NotificationUrgency {
+
+	LOW,
+	NORMAL,
+	CRITICAL
+}

@@ -22,18 +22,25 @@
  * SOFTWARE.
  */
 
-package pl.pitcer.janot;
+package pl.pitcer.janot.notify;
 
-import pl.pitcer.janot.notify.Notification;
-import pl.pitcer.janot.notify.Notify;
+final class NativeNotify {
 
-public final class Main {
-
-	public static void main(String[] args) {
-		Notify.init("janot");
-		Notification notification = Notify.createNotification();
-		notification.update("Test", "Test notification", "dialog-information");
-		notification.show();
-		Notify.uninit();
+	static {
+		System.loadLibrary("janot-native");
 	}
+
+	private NativeNotify() {
+		throw new UnsupportedOperationException("Cannot create an instance of this class");
+	}
+
+	static native boolean init(String appName);
+
+	static native void uninit();
+
+	static native boolean isInitted();
+
+	static native String getAppName();
+
+	static native void setAppName(String appName);
 }
