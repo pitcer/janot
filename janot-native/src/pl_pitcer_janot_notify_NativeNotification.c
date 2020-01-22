@@ -56,24 +56,50 @@ JNIEXPORT jboolean JNICALL Java_pl_pitcer_janot_notify_NativeNotification_show(J
 	return (jboolean) result;
 }
 
-JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_setTimeout(JNIEnv* env, jclass class, jobject, jint);
+JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_setTimeout(JNIEnv* env, jclass class, jobject notification, jint timeout) {
+	NotifyNotification* notify_notification = buffer_to_pointer(env, notification);
+	notify_notification_set_timeout(notify_notification, timeout);
+}
 
-JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_setCategory(JNIEnv* env, jclass class, jobject, jstring);
+JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_setCategory(JNIEnv* env, jclass class, jobject notification, jstring category) {
+	NotifyNotification* notify_notification = buffer_to_pointer(env, notification);
+	Chars category_chars = string_to_chars(env, category);
+	notify_notification_set_category(notify_notification, category_chars);
+	release_string(env, category, category_chars);
+}
 
-JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_setUrgency(JNIEnv* env, jclass class, jobject, jobject);
+JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_setUrgency(JNIEnv* env, jclass class, jobject notification, jobject urgency);
 
-JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_setImageFromPixbuf(JNIEnv* env, jclass class, jobject, jobject);
+JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_setImageFromPixbuf(JNIEnv* env, jclass class, jobject notification, jobject pixbuf);
 
-JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_setHint(JNIEnv* env, jclass class, jobject, jstring, jobject);
+JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_setHint(JNIEnv* env, jclass class, jobject notification, jstring key, jobject value);
 
-JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_setAppName(JNIEnv* env, jclass class, jobject, jstring);
+JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_setAppName(JNIEnv* env, jclass class, jobject notification, jstring app_name) {
+	NotifyNotification* notify_notification = buffer_to_pointer(env, notification);
+	Chars app_name_chars = string_to_chars(env, app_name);
+	notify_notification_set_category(notify_notification, app_name_chars);
+	release_string(env, app_name, app_name_chars);
+}
 
-JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_clearHints(JNIEnv* env, jclass class, jobject);
+JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_clearHints(JNIEnv* env, jclass class, jobject notification) {
+	NotifyNotification* notify_notification = buffer_to_pointer(env, notification);
+	notify_notification_clear_hints(notify_notification);
+}
 
-JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_addAction(JNIEnv* env, jclass class, jobject, jstring, jstring, jobject, jobject, jobject);
+JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_addAction(JNIEnv* env, jclass class, jobject notification, jstring action, jstring label, jobject callback, jobject user_data, jobject free_func);
 
-JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_clearActions(JNIEnv* env, jclass class, jobject);
+JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_clearActions(JNIEnv* env, jclass class, jobject notification) {
+	NotifyNotification* notify_notification = buffer_to_pointer(env, notification);
+	notify_notification_clear_actions(notify_notification);
+}
 
-JNIEXPORT jboolean JNICALL Java_pl_pitcer_janot_notify_NativeNotification_close(JNIEnv* env, jclass class, jobject, jobject);
+JNIEXPORT jboolean JNICALL Java_pl_pitcer_janot_notify_NativeNotification_close(JNIEnv* env, jclass class, jobject notification, jobject error) {
+	NotifyNotification* notify_notification = buffer_to_pointer(env, notification);
+	gboolean result = notify_notification_close(notify_notification, NULL);
+	return (jboolean) result;
+}
 
-JNIEXPORT jint JNICALL Java_pl_pitcer_janot_notify_NativeNotification_getClosedReason(JNIEnv* env, jclass class, jobject);
+JNIEXPORT jint JNICALL Java_pl_pitcer_janot_notify_NativeNotification_getClosedReason(JNIEnv* env, jclass class, jobject notification) {
+	NotifyNotification* notify_notification = buffer_to_pointer(env, notification);
+	return notify_notification_get_closed_reason(notify_notification);
+}
