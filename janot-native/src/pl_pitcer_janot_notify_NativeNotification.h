@@ -50,10 +50,10 @@ JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_setCategor
 /*
  * Class:     pl_pitcer_janot_notify_NativeNotification
  * Method:    setUrgency
- * Signature: (Ljava/nio/ByteBuffer;Lpl/pitcer/janot/notify/NotificationUrgency;)V
+ * Signature: (Ljava/nio/ByteBuffer;I)V
  */
 JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_setUrgency
-  (JNIEnv *, jclass, jobject, jobject);
+  (JNIEnv *, jclass, jobject, jint);
 
 /*
  * Class:     pl_pitcer_janot_notify_NativeNotification

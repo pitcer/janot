@@ -46,7 +46,7 @@ final class NativeNotification {
 
 	static native void setCategory(ByteBuffer notification, String category);
 
-	static native void setUrgency(ByteBuffer notification, NotificationUrgency urgency);
+	static native void setUrgency(ByteBuffer notification, int urgency);
 
 	static native void setImageFromPixbuf(ByteBuffer notification, ByteBuffer pixbuf);
 

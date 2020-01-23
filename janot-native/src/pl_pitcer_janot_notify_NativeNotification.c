@@ -68,7 +68,10 @@ JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_setCategor
 	release_string(env, category, category_chars);
 }
 
-JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_setUrgency(JNIEnv* env, jclass class, jobject notification, jobject urgency);
+JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_setUrgency(JNIEnv* env, jclass class, jobject notification, jint urgency) {
+	NotifyNotification* notify_notification = buffer_to_pointer(env, notification);
+	notify_notification_set_urgency(notify_notification, urgency);
+}
 
 JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_setImageFromPixbuf(JNIEnv* env, jclass class, jobject notification, jobject pixbuf);
 

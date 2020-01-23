@@ -93,7 +93,6 @@ tasks.register("generateHeaders") {
 			commandLine("javac", "-h", "src",
 				"$janotPath/notify/NativeNotification.java",
 				"$janotPath/notify/NativeNotify.java",
-				"$janotPath/notify/NotificationUrgency.java",
 				"$janotPath/gtk/NativeGtk.java"
 			)
 		}

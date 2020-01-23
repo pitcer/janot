@@ -65,7 +65,8 @@ class NotificationImpl implements Notification {
 
 	@Override
 	public void setUrgency(NotificationUrgency urgency) {
-		NativeNotification.setUrgency(this.notification, urgency);
+		int ordinal = urgency.ordinal();
+		NativeNotification.setUrgency(this.notification, ordinal);
 	}
 
 	@Override
