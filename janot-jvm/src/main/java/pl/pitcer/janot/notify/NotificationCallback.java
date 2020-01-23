@@ -24,40 +24,7 @@
 
 package pl.pitcer.janot.notify;
 
-import java.nio.ByteBuffer;
+public interface NotificationCallback {
 
-public interface Notification {
-
-	int EXPIRES_DEFAULT_TIMEOUT = -1;
-	int EXPIRES_NEVER_TIMEOUT = 0;
-
-	boolean update(String summary, String body, String icon);
-
-	boolean show();
-
-	boolean show(ByteBuffer error);
-
-	void setTimeout(int timeout);
-
-	void setCategory(String category);
-
-	void setUrgency(NotificationUrgency urgency);
-
-	void setImageFromPixbuf(ByteBuffer pixbuf);
-
-	void setHint(String key, ByteBuffer value);
-
-	void setAppName(String appName);
-
-	void clearHints();
-
-	void addAction(String action, String label, NotificationCallback callback);
-
-	void clearActions();
-
-	boolean close();
-
-	boolean close(ByteBuffer error);
-
-	int getClosedReason();
+	void onAction(String action);
 }

@@ -43,4 +43,10 @@ int get_array_length(JNIEnv* jni_environment, jobjectArray array);
 
 jobject get_array_object_element(JNIEnv* jni_environment, jobjectArray array, int index);
 
+jobject create_global_reference(JNIEnv* jni_environment, jobject object);
+
+void delete_global_reference(JNIEnv* jni_environment, jobject reference);
+
+void call_java_void_method(JNIEnv* jni_environment, Chars name, Chars signature, jobject object, ...);
+
 #endif

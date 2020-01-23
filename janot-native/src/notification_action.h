@@ -22,42 +22,20 @@
  * SOFTWARE.
  */
 
-package pl.pitcer.janot.notify;
+#ifndef NOTIFICATION_ACTION_HEADER
+#define NOTIFICATION_ACTION_HEADER
 
-import java.nio.ByteBuffer;
+#include <jni.h>
+#include <libnotify/notification.h>
 
-public interface Notification {
+#define G_FREE_FUNC(function) ((GFreeFunc) function)
 
-	int EXPIRES_DEFAULT_TIMEOUT = -1;
-	int EXPIRES_NEVER_TIMEOUT = 0;
+typedef struct callback_data CallbackData;
 
-	boolean update(String summary, String body, String icon);
+CallbackData* allocate_callback_data(JNIEnv* jni_environment, jobject callback);
 
-	boolean show();
+void callback_function(NotifyNotification* notification, char* action, gpointer user_data);
 
-	boolean show(ByteBuffer error);
+void free_user_data_function(gpointer data);
 
-	void setTimeout(int timeout);
-
-	void setCategory(String category);
-
-	void setUrgency(NotificationUrgency urgency);
-
-	void setImageFromPixbuf(ByteBuffer pixbuf);
-
-	void setHint(String key, ByteBuffer value);
-
-	void setAppName(String appName);
-
-	void clearHints();
-
-	void addAction(String action, String label, NotificationCallback callback);
-
-	void clearActions();
-
-	boolean close();
-
-	boolean close(ByteBuffer error);
-
-	int getClosedReason();
-}
+#endif

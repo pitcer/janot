@@ -90,10 +90,10 @@ JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_clearHints
 /*
  * Class:     pl_pitcer_janot_notify_NativeNotification
  * Method:    addAction
- * Signature: (Ljava/nio/ByteBuffer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V
+ * Signature: (Ljava/nio/ByteBuffer;Ljava/lang/String;Ljava/lang/String;Lpl/pitcer/janot/notify/NotificationCallback;)V
  */
 JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_addAction
-  (JNIEnv *, jclass, jobject, jstring, jstring, jobject, jobject, jobject);
+  (JNIEnv *, jclass, jobject, jstring, jstring, jobject);
 
 /*
  * Class:     pl_pitcer_janot_notify_NativeNotification

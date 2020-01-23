@@ -56,7 +56,7 @@ final class NativeNotification {
 
 	static native void clearHints(ByteBuffer notification);
 
-	static native void addAction(ByteBuffer notification, String action, String label, Object callback, Object userData, Object freeFunc);
+	static native void addAction(ByteBuffer notification, String action, String label, NotificationCallback callback);
 
 	static native void clearActions(ByteBuffer notification);
 

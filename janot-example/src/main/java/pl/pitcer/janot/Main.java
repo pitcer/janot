@@ -24,16 +24,21 @@
 
 package pl.pitcer.janot;
 
+import pl.pitcer.janot.gtk.Gtk;
 import pl.pitcer.janot.notify.Notification;
 import pl.pitcer.janot.notify.Notify;
 
 public final class Main {
 
 	public static void main(String[] args) {
+		Gtk.init(args);
 		Notify.init("janot");
 		Notification notification = Notify.createNotification();
 		notification.update("Test", "Test notification", "dialog-information");
+		notification.addAction("test-action", "Test", action -> System.out.println("Test"));
 		notification.show();
+		Gtk.main();
 		Notify.uninit();
+		Gtk.mainQuit();
 	}
 }

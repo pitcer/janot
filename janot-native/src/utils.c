@@ -60,3 +60,23 @@ jobject get_array_object_element(JNIEnv* jni_environment, jobjectArray array, in
 	JNIEnv native_interface = *jni_environment;
 	return native_interface->GetObjectArrayElement(jni_environment, array, index);
 }
+
+jobject create_global_reference(JNIEnv* jni_environment, jobject object) {
+	JNIEnv native_interface = *jni_environment;
+	return native_interface->NewGlobalRef(jni_environment, object);
+}
+
+void delete_global_reference(JNIEnv* jni_environment, jobject reference) {
+	JNIEnv native_interface = *jni_environment;
+	native_interface->DeleteGlobalRef(jni_environment, reference);
+}
+
+void call_java_void_method(JNIEnv* jni_environment, Chars name, Chars signature, jobject object, ...) {
+	JNIEnv native_interface = *jni_environment;
+	jclass class = native_interface->GetObjectClass(jni_environment, object);
+	jmethodID method_id = native_interface->GetMethodID(jni_environment, class, name, signature);
+	va_list arguments;
+	va_start(arguments, object);
+	native_interface->CallVoidMethodV(jni_environment, object, method_id, arguments);
+	va_end(arguments);
+}

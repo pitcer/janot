@@ -90,8 +90,8 @@ class NotificationImpl implements Notification {
 	}
 
 	@Override
-	public void addAction(String action, String label, Object callback, Object userData, Object freeFunc) {
-		NativeNotification.addAction(this.notification, action, label, callback, userData, freeFunc);
+	public void addAction(String action, String label, NotificationCallback callback) {
+		NativeNotification.addAction(this.notification, action, label, callback);
 	}
 
 	@Override
