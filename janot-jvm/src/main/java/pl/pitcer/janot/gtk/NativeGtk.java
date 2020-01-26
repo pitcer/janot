@@ -22,25 +22,21 @@
  * SOFTWARE.
  */
 
-#ifndef UTILS_HEADER
-#define UTILS_HEADER
+package pl.pitcer.janot.gtk;
 
-#include <jni.h>
+final class NativeGtk {
 
-typedef const char* Chars;
+	static {
+		System.loadLibrary("janot-native");
+	}
 
-Chars string_to_chars(JNIEnv* jni_environment, jstring string);
+	private NativeGtk() {
+		throw new UnsupportedOperationException("Cannot create an instance of this class");
+	}
 
-void release_string(JNIEnv* jni_environment, jstring string, Chars chars);
+	static native void init(String[] args);
 
-jstring create_string(JNIEnv* jni_environment, Chars chars);
+	static native void main();
 
-jobject pointer_to_buffer(JNIEnv* jni_environment, void* pointer, jlong size);
-
-void* buffer_to_pointer(JNIEnv* jni_environment, jobject buffer);
-
-int get_array_length(JNIEnv* jni_environment, jobjectArray array);
-
-jobject get_array_object_element(JNIEnv* jni_environment, jobjectArray array, int index);
-
-#endif
+	static native void mainQuit();
+}

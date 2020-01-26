@@ -50,3 +50,13 @@ void* buffer_to_pointer(JNIEnv* jni_environment, jobject buffer) {
 	JNIEnv native_interface = *jni_environment;
 	return native_interface->GetDirectBufferAddress(jni_environment, buffer);
 }
+
+int get_array_length(JNIEnv* jni_environment, jobjectArray array) {
+	JNIEnv native_interface = *jni_environment;
+	return native_interface->GetArrayLength(jni_environment, array);
+}
+
+jobject get_array_object_element(JNIEnv* jni_environment, jobjectArray array, int index) {
+	JNIEnv native_interface = *jni_environment;
+	return native_interface->GetObjectArrayElement(jni_environment, array, index);
+}
