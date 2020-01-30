@@ -28,6 +28,9 @@ import java.nio.ByteBuffer;
 
 public interface Notification {
 
+	int EXPIRES_DEFAULT_TIMEOUT = -1;
+	int EXPIRES_NEVER_TIMEOUT = 0;
+
 	boolean update(String summary, String body, String icon);
 
 	boolean show();
