@@ -39,7 +39,7 @@ void release_arguments(int length, Chars arguments_chars[length], JNIEnv* env, j
 	for (int index = 0; index < length; index++) {
 		jstring argument = get_array_object_element(env, arguments, index);
 		Chars argument_chars = arguments_chars[index];
-		release_string(env, argument, arguments_chars);
+		release_string(env, argument, argument_chars);
 	}
 }
 
