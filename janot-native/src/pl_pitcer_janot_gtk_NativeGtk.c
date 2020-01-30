@@ -47,7 +47,7 @@ JNIEXPORT void JNICALL Java_pl_pitcer_janot_gtk_NativeGtk_init(JNIEnv* env, jcla
 	int length = get_array_length(env, args);
 	Chars arguments_chars[length];
 	fill_arguments(length, arguments_chars, env, args);
-	gtk_init(&length, &arguments_chars);
+	gtk_init(&length, (char***) &arguments_chars);
 	release_arguments(length, arguments_chars, env, args);
 }
 
