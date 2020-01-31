@@ -15,6 +15,14 @@ extern "C" {
 JNIEXPORT jobject JNICALL Java_pl_pitcer_janot_gtk_NativeWindow_newInstance
   (JNIEnv *, jclass, jint);
 
+/*
+ * Class:     pl_pitcer_janot_gtk_NativeWindow
+ * Method:    setTitle
+ * Signature: (Ljava/nio/ByteBuffer;Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_pl_pitcer_janot_gtk_NativeWindow_setTitle
+  (JNIEnv *, jclass, jobject, jstring);
+
 #ifdef __cplusplus
 }
 #endif

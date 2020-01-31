@@ -37,4 +37,6 @@ final class NativeWindow {
 	}
 
 	static native ByteBuffer newInstance(int type);
+
+	static native void setTitle(ByteBuffer windowWidget, String title);
 }

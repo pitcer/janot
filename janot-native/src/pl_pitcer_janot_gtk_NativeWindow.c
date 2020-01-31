@@ -31,3 +31,11 @@ JNIEXPORT jobject JNICALL Java_pl_pitcer_janot_gtk_NativeWindow_newInstance(JNIE
 	GtkWidget* window_widget = gtk_window_new(type);
 	return pointer_to_buffer(jni_environment, window_widget, sizeof(GtkWidget));
 }
+
+JNIEXPORT void JNICALL Java_pl_pitcer_janot_gtk_NativeWindow_setTitle(JNIEnv* jni_environment, jclass class, jobject window_widget_buffer, jstring title) {
+	void* pointer = buffer_to_pointer(jni_environment, window_widget_buffer);
+	GtkWindow* window = GTK_WINDOW(pointer);
+	Chars title_chars = string_to_chars(jni_environment, title);
+	gtk_window_set_title(window, title_chars);
+	release_string(jni_environment, title, title_chars);
+}

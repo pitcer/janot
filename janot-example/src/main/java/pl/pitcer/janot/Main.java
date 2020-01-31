@@ -39,6 +39,7 @@ public final class Main {
 		notification.addAction("test-action", "Test", action -> quit());
 		notification.show();
 		Window window = Gtk.createWindow();
+		window.setTitle("Test Window");
 		window.showAll();
 		Gtk.main();
 	}

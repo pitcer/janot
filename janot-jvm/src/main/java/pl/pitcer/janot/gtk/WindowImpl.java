@@ -40,4 +40,9 @@ class WindowImpl extends WidgetImpl implements Window {
 		int ordinal = type.ordinal();
 		return NativeWindow.newInstance(ordinal);
 	}
+
+	@Override
+	public void setTitle(String title) {
+		NativeWindow.setTitle(this.widget, title);
+	}
 }

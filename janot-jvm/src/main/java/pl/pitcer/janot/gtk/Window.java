@@ -26,4 +26,5 @@ package pl.pitcer.janot.gtk;
 
 public interface Window extends Widget {
 
+	void setTitle(String title);
 }

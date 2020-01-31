@@ -28,7 +28,7 @@ import java.nio.ByteBuffer;
 
 class WidgetImpl implements Widget {
 
-	private ByteBuffer widget;
+	protected ByteBuffer widget;
 
 	WidgetImpl(ByteBuffer widget) {
 		this.widget = widget;
