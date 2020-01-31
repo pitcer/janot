@@ -22,29 +22,13 @@
  * SOFTWARE.
  */
 
-package pl.pitcer.janot;
+#include "pl_pitcer_janot_gtk_NativeWidget.h"
 
-import pl.pitcer.janot.gtk.Gtk;
-import pl.pitcer.janot.gtk.Window;
-import pl.pitcer.janot.notify.Notification;
-import pl.pitcer.janot.notify.Notify;
+#include <gtk/gtk.h>
+#include "utils.h"
 
-public final class Main {
-
-	public static void main(String[] args) {
-		Gtk.init(args);
-		Notify.init("janot");
-		Notification notification = Notify.createNotification();
-		notification.update("Test", "Test notification", "dialog-information");
-		notification.addAction("test-action", "Test", action -> quit());
-		notification.show();
-		Window window = Gtk.createWindow();
-		window.showAll();
-		Gtk.main();
-	}
-
-	private static void quit() {
-		Notify.uninit();
-		Gtk.mainQuit();
-	}
+JNIEXPORT void JNICALL Java_pl_pitcer_janot_gtk_NativeWidget_showAll(JNIEnv* jni_environment, jclass class, jobject widget_buffer) {
+	void* pointer = buffer_to_pointer(jni_environment, widget_buffer);
+	GtkWidget* widget = GTK_WIDGET(pointer);
+	gtk_widget_show_all(widget);
 }

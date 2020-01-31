@@ -24,6 +24,6 @@
 
 package pl.pitcer.janot.gtk;
 
-public interface Window {
+public interface Window extends Widget {
 
 }

@@ -26,16 +26,18 @@ package pl.pitcer.janot.gtk;
 
 import java.nio.ByteBuffer;
 
-class WindowImpl implements Window {
-
-	private ByteBuffer windowWidget;
+class WindowImpl extends WidgetImpl implements Window {
 
 	WindowImpl() {
 		this(WindowType.TOPLEVEL);
 	}
 
 	WindowImpl(WindowType type) {
+		super(createWindowWidget(type));
+	}
+
+	private static ByteBuffer createWindowWidget(WindowType type) {
 		int ordinal = type.ordinal();
-		this.windowWidget = NativeWindow.newInstance(ordinal);
+		return NativeWindow.newInstance(ordinal);
 	}
 }
