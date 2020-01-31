@@ -22,25 +22,8 @@
  * SOFTWARE.
  */
 
-package pl.pitcer.janot;
+package pl.pitcer.janot.gtk;
 
-import pl.pitcer.janot.gtk.Gtk;
-import pl.pitcer.janot.gtk.Window;
-import pl.pitcer.janot.notify.Notification;
-import pl.pitcer.janot.notify.Notify;
+public interface Window {
 
-public final class Main {
-
-	public static void main(String[] args) {
-		Gtk.init(args);
-		Notify.init("janot");
-		Notification notification = Notify.createNotification();
-		notification.update("Test", "Test notification", "dialog-information");
-		notification.addAction("test-action", "Test", action -> System.out.println("Test"));
-		notification.show();
-		Window window = Gtk.createWindow();
-		Gtk.main();
-		Notify.uninit();
-		Gtk.mainQuit();
-	}
 }
