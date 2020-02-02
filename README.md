@@ -6,7 +6,11 @@ Java libnotify and GTK bindings.
 
 ## Requirements
 
-* Java 11
+* Linux
+* GTK 3
+* `libnotify`
+* `gcc`
+* JDK 11
 
 ## Compilation
 
