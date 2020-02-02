@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-#include "utils.h"
+#include "jni_utils.h"
 
 #include <stdbool.h>
 

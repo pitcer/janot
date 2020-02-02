@@ -40,6 +40,7 @@ public final class Main {
 		notification.show();
 		Window window = Gtk.createWindow();
 		window.setTitle("Test Window");
+		window.setDestroyCallback(Main::quit);
 		window.showAll();
 		Gtk.main();
 	}

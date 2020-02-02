@@ -22,12 +22,9 @@
  * SOFTWARE.
  */
 
-#include "notification_action.h"
+#include "callback_data.h"
 
-#include "utils.h"
-
-#define CALLBACK_FUNCTION_NAME "onAction"
-#define CALLBACK_FUNCTION_SIGNATURE "(Ljava/lang/String;)V"
+#include <stdlib.h>
 
 typedef struct callback_data {
 	JNIEnv* jni_environment;
@@ -41,20 +38,25 @@ CallbackData* allocate_callback_data(JNIEnv* jni_environment, jobject callback) 
 	return callback_data;
 }
 
-void callback_function(NotifyNotification* notification, char* action, gpointer user_data) {
-	CallbackData* callback_data = user_data;
+void delete_callback_reference(CallbackData* callback_data) {
 	JNIEnv* jni_environment = callback_data->jni_environment;
 	jobject callback = callback_data->callback;
-	jstring action_string = create_string(jni_environment, action);
-	call_java_void_method(jni_environment, CALLBACK_FUNCTION_NAME, CALLBACK_FUNCTION_SIGNATURE, callback, action_string);
 	delete_global_reference(jni_environment, callback);
-	free(callback_data);
 }
 
-void free_user_data_function(gpointer data) {
-	CallbackData* callback_data = data;
+void call_void_callback(CallbackData* callback_data, Chars name, Chars signature, ...) {
 	JNIEnv* jni_environment = callback_data->jni_environment;
 	jobject callback = callback_data->callback;
-	delete_global_reference(jni_environment, callback);
-	free(callback_data);
+	va_list arguments;
+	va_start(arguments, signature);
+	call_java_void_method(jni_environment, name, signature, callback, arguments);
+	va_end(arguments);
+}
+
+JNIEnv* get_jni_environment(CallbackData* callback_data) {
+	return callback_data->jni_environment;
+}
+
+jobject get_callback(CallbackData* callback_data) {
+	return callback_data->callback;
 }

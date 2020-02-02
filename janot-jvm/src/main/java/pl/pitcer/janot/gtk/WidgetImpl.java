@@ -38,4 +38,9 @@ class WidgetImpl implements Widget {
 	public void showAll() {
 		NativeWidget.showAll(this.widget);
 	}
+
+	@Override
+	public void setDestroyCallback(DestroyCallback callback) {
+		NativeWidget.setDestroyCallback(this.widget, callback);
+	}
 }

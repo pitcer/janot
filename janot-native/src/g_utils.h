@@ -22,20 +22,12 @@
  * SOFTWARE.
  */
 
-#ifndef NOTIFICATION_ACTION_HEADER
-#define NOTIFICATION_ACTION_HEADER
+#ifndef G_UTILS_HEADER
+#define G_UTILS_HEADER
 
-#include <jni.h>
-#include <libnotify/notification.h>
+#include <gtk/gtk.h>
 
-#define G_FREE_FUNC(function) ((GFreeFunc) function)
-
-typedef struct callback_data CallbackData;
-
-CallbackData* allocate_callback_data(JNIEnv* jni_environment, jobject callback);
-
-void callback_function(NotifyNotification* notification, char* action, gpointer user_data);
-
-void free_user_data_function(gpointer data);
+#define G_FREE_FUNCTION(function) (GFreeFunc) function
+#define G_CLOSURE_NOTIFY(function) (GClosureNotify) function
 
 #endif

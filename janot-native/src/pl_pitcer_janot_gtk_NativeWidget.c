@@ -25,10 +25,31 @@
 #include "pl_pitcer_janot_gtk_NativeWidget.h"
 
 #include <gtk/gtk.h>
-#include "utils.h"
+#include "jni_utils.h"
+#include "g_utils.h"
+#include "callback_data.h"
 
 JNIEXPORT void JNICALL Java_pl_pitcer_janot_gtk_NativeWidget_showAll(JNIEnv* jni_environment, jclass class, jobject widget_buffer) {
 	void* pointer = buffer_to_pointer(jni_environment, widget_buffer);
 	GtkWidget* widget = GTK_WIDGET(pointer);
 	gtk_widget_show_all(widget);
+}
+
+static void destroy_callback_function(GtkWidget* object, gpointer user_data) {
+	CallbackData* callback_data = user_data;
+	call_void_callback(callback_data, "onDestroy", "()V");
+}
+
+static void destroy_data_function(gpointer data, GClosure* closure) {
+	CallbackData* callback_data = data;
+	delete_callback_reference(callback_data);
+	free(callback_data);
+}
+
+JNIEXPORT jlong JNICALL Java_pl_pitcer_janot_gtk_NativeWidget_setDestroyCallback(JNIEnv* jni_environment, jclass class, jobject widget_buffer, jobject destroy_callback) {
+	void* pointer = buffer_to_pointer(jni_environment, widget_buffer);
+	GObject* object = G_OBJECT(pointer);
+	CallbackData* callback_data = allocate_callback_data(jni_environment, destroy_callback);
+	long unsigned int result = g_signal_connect_data(object, "destroy", G_CALLBACK(destroy_callback_function), callback_data, G_CLOSURE_NOTIFY(destroy_data_function), 0);
+	return (jlong) result;
 }

@@ -15,6 +15,14 @@ extern "C" {
 JNIEXPORT void JNICALL Java_pl_pitcer_janot_gtk_NativeWidget_showAll
   (JNIEnv *, jclass, jobject);
 
+/*
+ * Class:     pl_pitcer_janot_gtk_NativeWidget
+ * Method:    setDestroyCallback
+ * Signature: (Ljava/nio/ByteBuffer;Lpl/pitcer/janot/gtk/DestroyCallback;)J
+ */
+JNIEXPORT jlong JNICALL Java_pl_pitcer_janot_gtk_NativeWidget_setDestroyCallback
+  (JNIEnv *, jclass, jobject, jobject);
+
 #ifdef __cplusplus
 }
 #endif

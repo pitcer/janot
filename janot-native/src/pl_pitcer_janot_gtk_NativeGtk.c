@@ -25,7 +25,7 @@
 #include "pl_pitcer_janot_gtk_NativeGtk.h"
 
 #include <gtk/gtk.h>
-#include "utils.h"
+#include "jni_utils.h"
 
 void fill_arguments(int length, Chars arguments_chars[length], JNIEnv* env, jobjectArray arguments) {
 	for (int index = 0; index < length; index++) {

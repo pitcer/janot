@@ -22,31 +22,9 @@
  * SOFTWARE.
  */
 
-#ifndef UTILS_HEADER
-#define UTILS_HEADER
+package pl.pitcer.janot.gtk;
 
-#include <jni.h>
+public interface DestroyCallback {
 
-typedef const char* Chars;
-
-Chars string_to_chars(JNIEnv* jni_environment, jstring string);
-
-void release_string(JNIEnv* jni_environment, jstring string, Chars chars);
-
-jstring create_string(JNIEnv* jni_environment, Chars chars);
-
-jobject pointer_to_buffer(JNIEnv* jni_environment, void* pointer, jlong size);
-
-void* buffer_to_pointer(JNIEnv* jni_environment, jobject buffer);
-
-int get_array_length(JNIEnv* jni_environment, jobjectArray array);
-
-jobject get_array_object_element(JNIEnv* jni_environment, jobjectArray array, int index);
-
-jobject create_global_reference(JNIEnv* jni_environment, jobject object);
-
-void delete_global_reference(JNIEnv* jni_environment, jobject reference);
-
-void call_java_void_method(JNIEnv* jni_environment, Chars name, Chars signature, jobject object, ...);
-
-#endif
+	void onDestroy();
+}

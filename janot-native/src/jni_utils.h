@@ -22,33 +22,31 @@
  * SOFTWARE.
  */
 
-#include "pl_pitcer_janot_notify_NativeNotify.h"
+#ifndef JNI_UTILS_HEADER
+#define JNI_UTILS_HEADER
 
-#include <libnotify/notify.h>
-#include "jni_utils.h"
+#include <jni.h>
 
-JNIEXPORT jboolean JNICALL Java_pl_pitcer_janot_notify_NativeNotify_init(JNIEnv *env, jclass class, jstring app_name) {
-	Chars app_name_chars = string_to_chars(env, app_name);
-	gboolean result = notify_init(app_name_chars);
-	release_string(env, app_name, app_name_chars);
-	return (jboolean) result;
-}
+typedef const char* Chars;
 
-JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotify_uninit(JNIEnv *env, jclass class) {
-	notify_uninit();
-}
+Chars string_to_chars(JNIEnv* jni_environment, jstring string);
 
-JNIEXPORT jboolean JNICALL Java_pl_pitcer_janot_notify_NativeNotify_isInitted(JNIEnv *env, jclass class) {
-	gboolean result = notify_is_initted();
-	return (jboolean) result;
-}
+void release_string(JNIEnv* jni_environment, jstring string, Chars chars);
 
-JNIEXPORT jstring JNICALL Java_pl_pitcer_janot_notify_NativeNotify_getAppName(JNIEnv *env, jclass class) {
-	Chars app_name_chars = notify_get_app_name();
-	return create_string(env, app_name_chars);
-}
+jstring create_string(JNIEnv* jni_environment, Chars chars);
 
-JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotify_setAppName(JNIEnv *env, jclass class, jstring app_name) {
-	Chars app_name_chars = string_to_chars(env, app_name);
-	notify_set_app_name(app_name_chars);
-}
+jobject pointer_to_buffer(JNIEnv* jni_environment, void* pointer, jlong size);
+
+void* buffer_to_pointer(JNIEnv* jni_environment, jobject buffer);
+
+int get_array_length(JNIEnv* jni_environment, jobjectArray array);
+
+jobject get_array_object_element(JNIEnv* jni_environment, jobjectArray array, int index);
+
+jobject create_global_reference(JNIEnv* jni_environment, jobject object);
+
+void delete_global_reference(JNIEnv* jni_environment, jobject reference);
+
+void call_java_void_method(JNIEnv* jni_environment, Chars name, Chars signature, jobject object, ...);
+
+#endif

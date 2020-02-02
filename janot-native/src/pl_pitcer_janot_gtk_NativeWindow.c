@@ -25,7 +25,7 @@
 #include "pl_pitcer_janot_gtk_NativeWindow.h"
 
 #include <gtk/gtk.h>
-#include "utils.h"
+#include "jni_utils.h"
 
 JNIEXPORT jobject JNICALL Java_pl_pitcer_janot_gtk_NativeWindow_newInstance(JNIEnv* jni_environment, jclass class, jint type) {
 	GtkWidget* window_widget = gtk_window_new(type);

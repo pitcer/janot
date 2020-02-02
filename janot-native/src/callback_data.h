@@ -22,33 +22,22 @@
  * SOFTWARE.
  */
 
-#include "pl_pitcer_janot_notify_NativeNotify.h"
+#ifndef CALLBACK_DATA_HEADER
+#define CALLBACK_DATA_HEADER
 
-#include <libnotify/notify.h>
+#include <jni.h>
 #include "jni_utils.h"
 
-JNIEXPORT jboolean JNICALL Java_pl_pitcer_janot_notify_NativeNotify_init(JNIEnv *env, jclass class, jstring app_name) {
-	Chars app_name_chars = string_to_chars(env, app_name);
-	gboolean result = notify_init(app_name_chars);
-	release_string(env, app_name, app_name_chars);
-	return (jboolean) result;
-}
+typedef struct callback_data CallbackData;
 
-JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotify_uninit(JNIEnv *env, jclass class) {
-	notify_uninit();
-}
+CallbackData* allocate_callback_data(JNIEnv* jni_environment, jobject callback);
 
-JNIEXPORT jboolean JNICALL Java_pl_pitcer_janot_notify_NativeNotify_isInitted(JNIEnv *env, jclass class) {
-	gboolean result = notify_is_initted();
-	return (jboolean) result;
-}
+void delete_callback_reference(CallbackData* callback_data);
 
-JNIEXPORT jstring JNICALL Java_pl_pitcer_janot_notify_NativeNotify_getAppName(JNIEnv *env, jclass class) {
-	Chars app_name_chars = notify_get_app_name();
-	return create_string(env, app_name_chars);
-}
+void call_void_callback(CallbackData* callback_data, Chars name, Chars signature, ...);
 
-JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotify_setAppName(JNIEnv *env, jclass class, jstring app_name) {
-	Chars app_name_chars = string_to_chars(env, app_name);
-	notify_set_app_name(app_name_chars);
-}
+JNIEnv* get_jni_environment(CallbackData* callback_data);
+
+jobject get_callback(CallbackData* callback_data);
+
+#endif

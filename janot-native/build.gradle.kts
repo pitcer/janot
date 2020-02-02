@@ -96,7 +96,8 @@ tasks.register("generateHeaders") {
 				"$janotPath/notify/NotificationCallback.java",
 				"$janotPath/gtk/NativeGtk.java",
 				"$janotPath/gtk/NativeWidget.java",
-				"$janotPath/gtk/NativeWindow.java"
+				"$janotPath/gtk/NativeWindow.java",
+				"$janotPath/gtk/DestroyCallback.java"
 			)
 		}
 	}

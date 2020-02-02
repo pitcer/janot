@@ -27,4 +27,6 @@ package pl.pitcer.janot.gtk;
 public interface Widget {
 
 	void showAll();
+
+	void setDestroyCallback(DestroyCallback callback);
 }

@@ -25,8 +25,9 @@
 #include "pl_pitcer_janot_notify_NativeNotification.h"
 
 #include <libnotify/notification.h>
-#include "utils.h"
-#include "notification_action.h"
+#include "jni_utils.h"
+#include "g_utils.h"
+#include "callback_data.h"
 
 JNIEXPORT jobject JNICALL Java_pl_pitcer_janot_notify_NativeNotification_newInstance(JNIEnv* env, jclass class, jstring summary, jstring body, jstring icon) {
 	Chars summary_chars = string_to_chars(env, summary);
@@ -90,12 +91,27 @@ JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_clearHints
 	notify_notification_clear_hints(notify_notification);
 }
 
+static void notification_callback_function(NotifyNotification* notification, char* action, gpointer user_data) {
+	CallbackData* callback_data = user_data;
+	JNIEnv* jni_environment = get_jni_environment(callback_data);
+	jstring action_string = create_string(jni_environment, action);
+	call_void_callback(callback_data, "onAction", "(Ljava/lang/String;)V", action_string);
+	delete_callback_reference(callback_data);
+	free(callback_data);
+}
+
+static void free_user_data_function(gpointer data) {
+	CallbackData* callback_data = data;
+	delete_callback_reference(callback_data);
+	free(callback_data);
+}
+
 JNIEXPORT void JNICALL Java_pl_pitcer_janot_notify_NativeNotification_addAction(JNIEnv* env, jclass class, jobject notification, jstring action, jstring label, jobject callback) {
 	NotifyNotification* notify_notification = buffer_to_pointer(env, notification);
 	Chars action_chars = string_to_chars(env, action);
 	Chars label_chars = string_to_chars(env, label);
 	CallbackData* callback_data = allocate_callback_data(env, callback);
-	notify_notification_add_action(notify_notification, action_chars, label_chars, NOTIFY_ACTION_CALLBACK(callback_function), callback_data, G_FREE_FUNC(free_user_data_function));
+	notify_notification_add_action(notify_notification, action_chars, label_chars, NOTIFY_ACTION_CALLBACK(notification_callback_function), callback_data, G_FREE_FUNCTION(free_user_data_function));
 	release_string(env, action, action_chars);
 	release_string(env, label, label_chars);
 }
