@@ -26,10 +26,10 @@
 
 #include <stdlib.h>
 
-typedef struct callback_data {
+struct callback_data {
 	JNIEnv* jni_environment;
 	jobject callback;
-} CallbackData;
+};
 
 CallbackData* allocate_callback_data(JNIEnv* jni_environment, jobject callback) {
 	CallbackData* callback_data = malloc(sizeof(CallbackData));
