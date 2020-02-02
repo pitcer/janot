@@ -34,5 +34,5 @@ final class NativeWidget {
 
 	static native void showAll(ByteBuffer widget);
 
-	static native long setDestroyCallback(ByteBuffer object, DestroyCallback callback);
+	static native long setDestroyCallback(ByteBuffer widget, DestroyCallback callback);
 }
