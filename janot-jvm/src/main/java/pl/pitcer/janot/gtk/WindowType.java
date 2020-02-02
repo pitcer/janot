@@ -26,6 +26,6 @@ package pl.pitcer.janot.gtk;
 
 public enum WindowType {
 
-	TOPLEVEL,
+	TOP_LEVEL,
 	POPUP
 }
