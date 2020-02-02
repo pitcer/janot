@@ -35,20 +35,27 @@ public final class Main {
 	public static void main(String[] args) {
 		Gtk.init(args);
 		Notify.init("janot");
-		Notification notification = new Notification();
-		notification.update("Test", "Test notification", "dialog-information");
-		notification.addAction("test-action", "Test", action -> quit());
-		notification.show();
+		createWindow();
+		Gtk.main();
+	}
+
+	private static void createWindow() {
 		Window window = new Window();
-		window.setTitle("Test");
+		window.setTitle("Example");
 		window.setBorderWidth(100);
 		window.setDestroyCallback(Main::quit);
 		Button button = new Button();
 		button.setLabel("Click me!");
-		button.setClickedCallback(() -> System.out.println("Hello!"));
+		button.setClickedCallback(Main::sendNotification);
 		window.add(button);
 		window.showAll();
-		Gtk.main();
+	}
+
+	private static void sendNotification() {
+		Notification notification = new Notification();
+		notification.update("Example", "Example notification", "dialog-information");
+		notification.addAction("open-window-action", "Open new window", action -> createWindow());
+		notification.show();
 	}
 
 	private static void quit() {
