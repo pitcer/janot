@@ -15,17 +15,14 @@ java {
 
 application {
 	mainClassName = "pl.pitcer.janot.Main"
+	applicationDefaultJvmArgs = listOf("-Djava.library.path=${project.buildDir}/libs")
 }
 
-tasks.jar {
+tasks.getByName("run") {
 	dependsOn.add(":janot-native:build")
-	doLast {
+	doFirst {
 		copy {
 			from("${project(":janot-native").buildDir}/lib/main/debug/libjanot-native.so")
-			into("${project.buildDir}/libs")
-		}
-		copy {
-			from("start.sh")
 			into("${project.buildDir}/libs")
 		}
 	}
