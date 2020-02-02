@@ -26,22 +26,15 @@ package pl.pitcer.janot.gtk;
 
 import java.nio.ByteBuffer;
 
-public class Window extends Container {
+final class NativeButton {
 
-	public Window() {
-		this(WindowType.TOP_LEVEL);
+	private NativeButton() {
+		throw new UnsupportedOperationException("Cannot create an instance of this class");
 	}
 
-	public Window(WindowType type) {
-		super(createWindowWidget(type));
-	}
+	static native ByteBuffer newInstance();
 
-	private static ByteBuffer createWindowWidget(WindowType type) {
-		int ordinal = type.ordinal();
-		return NativeWindow.newInstance(ordinal);
-	}
+	static native void setLabel(ByteBuffer button, String label);
 
-	public void setTitle(String title) {
-		NativeWindow.setTitle(this.widget, title);
-	}
+	static native void setClickedCallback(ByteBuffer button, ClickedCallback callback);
 }

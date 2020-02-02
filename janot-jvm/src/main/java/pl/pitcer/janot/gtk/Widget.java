@@ -26,7 +26,7 @@ package pl.pitcer.janot.gtk;
 
 import java.nio.ByteBuffer;
 
-public class Widget  {
+public class Widget {
 
 	protected ByteBuffer widget;
 

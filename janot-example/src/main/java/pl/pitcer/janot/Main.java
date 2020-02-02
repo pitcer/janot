@@ -24,6 +24,7 @@
 
 package pl.pitcer.janot;
 
+import pl.pitcer.janot.gtk.Button;
 import pl.pitcer.janot.gtk.Gtk;
 import pl.pitcer.janot.gtk.Window;
 import pl.pitcer.janot.notify.Notification;
@@ -39,8 +40,13 @@ public final class Main {
 		notification.addAction("test-action", "Test", action -> quit());
 		notification.show();
 		Window window = new Window();
-		window.setTitle("Test Window");
+		window.setTitle("Test");
+		window.setBorderWidth(100);
 		window.setDestroyCallback(Main::quit);
+		Button button = new Button();
+		button.setLabel("Click me!");
+		button.setClickedCallback(() -> System.out.println("Hello!"));
+		window.add(button);
 		window.showAll();
 		Gtk.main();
 	}

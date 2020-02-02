@@ -26,22 +26,17 @@ package pl.pitcer.janot.gtk;
 
 import java.nio.ByteBuffer;
 
-public class Window extends Container {
+public class Container extends Widget {
 
-	public Window() {
-		this(WindowType.TOP_LEVEL);
+	protected Container(ByteBuffer container) {
+		super(container);
 	}
 
-	public Window(WindowType type) {
-		super(createWindowWidget(type));
+	public void setBorderWidth(int width) {
+		NativeContainer.setBorderWidth(this.widget, width);
 	}
 
-	private static ByteBuffer createWindowWidget(WindowType type) {
-		int ordinal = type.ordinal();
-		return NativeWindow.newInstance(ordinal);
-	}
-
-	public void setTitle(String title) {
-		NativeWindow.setTitle(this.widget, title);
+	public void add(Widget widget) {
+		NativeContainer.add(this.widget, widget.widget);
 	}
 }

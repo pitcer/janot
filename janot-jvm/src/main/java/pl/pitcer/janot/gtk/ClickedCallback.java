@@ -24,24 +24,7 @@
 
 package pl.pitcer.janot.gtk;
 
-import java.nio.ByteBuffer;
+public interface ClickedCallback {
 
-public class Window extends Container {
-
-	public Window() {
-		this(WindowType.TOP_LEVEL);
-	}
-
-	public Window(WindowType type) {
-		super(createWindowWidget(type));
-	}
-
-	private static ByteBuffer createWindowWidget(WindowType type) {
-		int ordinal = type.ordinal();
-		return NativeWindow.newInstance(ordinal);
-	}
-
-	public void setTitle(String title) {
-		NativeWindow.setTitle(this.widget, title);
-	}
+	void onClicked();
 }

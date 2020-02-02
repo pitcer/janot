@@ -24,24 +24,17 @@
 
 package pl.pitcer.janot.gtk;
 
-import java.nio.ByteBuffer;
+public class Button extends Container {
 
-public class Window extends Container {
-
-	public Window() {
-		this(WindowType.TOP_LEVEL);
+	public Button() {
+		super(NativeButton.newInstance());
 	}
 
-	public Window(WindowType type) {
-		super(createWindowWidget(type));
+	public void setLabel(String label) {
+		NativeButton.setLabel(this.widget, label);
 	}
 
-	private static ByteBuffer createWindowWidget(WindowType type) {
-		int ordinal = type.ordinal();
-		return NativeWindow.newInstance(ordinal);
-	}
-
-	public void setTitle(String title) {
-		NativeWindow.setTitle(this.widget, title);
+	public void setClickedCallback(ClickedCallback callback) {
+		NativeButton.setClickedCallback(this.widget, callback);
 	}
 }

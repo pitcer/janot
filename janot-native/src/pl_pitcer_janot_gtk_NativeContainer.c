@@ -22,26 +22,21 @@
  * SOFTWARE.
  */
 
-package pl.pitcer.janot.gtk;
+#include "pl_pitcer_janot_gtk_NativeContainer.h"
 
-import java.nio.ByteBuffer;
+#include <gtk/gtk.h>
+#include "jni_utils.h"
 
-public class Window extends Container {
+JNIEXPORT void JNICALL Java_pl_pitcer_janot_gtk_NativeContainer_setBorderWidth(JNIEnv* jni_environment, jclass class, jobject container_buffer, jint width) {
+	void* container_pointer = buffer_to_pointer(jni_environment, container_buffer);
+	GtkContainer* container = GTK_CONTAINER(container_pointer);
+	gtk_container_set_border_width(container, (guint) width);
+}
 
-	public Window() {
-		this(WindowType.TOP_LEVEL);
-	}
-
-	public Window(WindowType type) {
-		super(createWindowWidget(type));
-	}
-
-	private static ByteBuffer createWindowWidget(WindowType type) {
-		int ordinal = type.ordinal();
-		return NativeWindow.newInstance(ordinal);
-	}
-
-	public void setTitle(String title) {
-		NativeWindow.setTitle(this.widget, title);
-	}
+JNIEXPORT void JNICALL Java_pl_pitcer_janot_gtk_NativeContainer_add(JNIEnv* jni_environment, jclass class, jobject container_buffer, jobject widget_buffer) {
+	void* container_pointer = buffer_to_pointer(jni_environment, container_buffer);
+	void* widget_pointer = buffer_to_pointer(jni_environment, widget_buffer);
+	GtkContainer* container = GTK_CONTAINER(container_pointer);
+	GtkWidget* widget = GTK_WIDGET(widget_pointer);
+	gtk_container_add(container, widget);
 }
