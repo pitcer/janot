@@ -28,10 +28,6 @@ import java.nio.ByteBuffer;
 
 final class NativeWidget {
 
-	static {
-		System.loadLibrary("janot-native");
-	}
-
 	private NativeWidget() {
 		throw new UnsupportedOperationException("Cannot create an instance of this class");
 	}

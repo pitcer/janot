@@ -28,10 +28,6 @@ import java.nio.ByteBuffer;
 
 final class NativeWindow {
 
-	static {
-		System.loadLibrary("janot-native");
-	}
-
 	private NativeWindow() {
 		throw new UnsupportedOperationException("Cannot create an instance of this class");
 	}

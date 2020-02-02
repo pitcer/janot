@@ -28,10 +28,6 @@ import java.nio.ByteBuffer;
 
 final class NativeNotification {
 
-	static {
-		System.loadLibrary("janot-native");
-	}
-
 	private NativeNotification() {
 		throw new UnsupportedOperationException("Cannot create an instance of this class");
 	}
