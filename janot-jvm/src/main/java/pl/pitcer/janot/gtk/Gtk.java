@@ -41,12 +41,4 @@ public final class Gtk {
 	public static void mainQuit() {
 		NativeGtk.mainQuit();
 	}
-
-	public static Window createWindow() {
-		return new WindowImpl();
-	}
-
-	public static Window createWindow(WindowType type) {
-		return new WindowImpl(type);
-	}
 }

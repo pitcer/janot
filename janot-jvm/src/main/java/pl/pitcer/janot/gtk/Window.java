@@ -24,7 +24,24 @@
 
 package pl.pitcer.janot.gtk;
 
-public interface Window extends Widget {
+import java.nio.ByteBuffer;
 
-	void setTitle(String title);
+public class Window extends Widget {
+
+	public Window() {
+		this(WindowType.TOP_LEVEL);
+	}
+
+	public Window(WindowType type) {
+		super(createWindowWidget(type));
+	}
+
+	private static ByteBuffer createWindowWidget(WindowType type) {
+		int ordinal = type.ordinal();
+		return NativeWindow.newInstance(ordinal);
+	}
+
+	public void setTitle(String title) {
+		NativeWindow.setTitle(this.widget, title);
+	}
 }

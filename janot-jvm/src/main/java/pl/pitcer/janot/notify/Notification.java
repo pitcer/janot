@@ -26,38 +26,79 @@ package pl.pitcer.janot.notify;
 
 import java.nio.ByteBuffer;
 
-public interface Notification {
+public class Notification {
 
-	int EXPIRES_DEFAULT_TIMEOUT = -1;
-	int EXPIRES_NEVER_TIMEOUT = 0;
+	public static final int EXPIRES_DEFAULT_TIMEOUT = -1;
+	public static final int EXPIRES_NEVER_TIMEOUT = 0;
 
-	boolean update(String summary, String body, String icon);
+	private ByteBuffer notification;
 
-	boolean show();
+	public Notification() {
+		this("", "", "");
+	}
 
-	boolean show(ByteBuffer error);
+	public Notification(String summary, String body, String icon) {
+		this.notification = NativeNotification.newInstance(summary, body, icon);
+	}
 
-	void setTimeout(int timeout);
+	public boolean update(String summary, String body, String icon) {
+		return NativeNotification.update(this.notification, summary, body, icon);
+	}
 
-	void setCategory(String category);
+	public boolean show() {
+		return show(null);
+	}
 
-	void setUrgency(NotificationUrgency urgency);
+	public boolean show(ByteBuffer error) {
+		return NativeNotification.show(this.notification, error);
+	}
 
-	void setImageFromPixbuf(ByteBuffer pixbuf);
+	public void setTimeout(int timeout) {
+		NativeNotification.setTimeout(this.notification, timeout);
+	}
 
-	void setHint(String key, ByteBuffer value);
+	public void setCategory(String category) {
+		NativeNotification.setCategory(this.notification, category);
+	}
 
-	void setAppName(String appName);
+	public void setUrgency(NotificationUrgency urgency) {
+		int ordinal = urgency.ordinal();
+		NativeNotification.setUrgency(this.notification, ordinal);
+	}
 
-	void clearHints();
+	public void setImageFromPixbuf(ByteBuffer pixbuf) {
+		NativeNotification.setImageFromPixbuf(this.notification, pixbuf);
+	}
 
-	void addAction(String action, String label, NotificationCallback callback);
+	public void setHint(String key, ByteBuffer value) {
+		NativeNotification.setHint(this.notification, key, value);
+	}
 
-	void clearActions();
+	public void setAppName(String appName) {
+		NativeNotification.setAppName(this.notification, appName);
+	}
 
-	boolean close();
+	public void clearHints() {
+		NativeNotification.clearHints(this.notification);
+	}
 
-	boolean close(ByteBuffer error);
+	public void addAction(String action, String label, NotificationCallback callback) {
+		NativeNotification.addAction(this.notification, action, label, callback);
+	}
 
-	int getClosedReason();
+	public void clearActions() {
+		NativeNotification.clearActions(this.notification);
+	}
+
+	public boolean close() {
+		return close(null);
+	}
+
+	public boolean close(ByteBuffer error) {
+		return NativeNotification.close(this.notification, error);
+	}
+
+	public int getClosedReason() {
+		return NativeNotification.getClosedReason(this.notification);
+	}
 }

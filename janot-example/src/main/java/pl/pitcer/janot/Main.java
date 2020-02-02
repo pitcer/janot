@@ -34,11 +34,11 @@ public final class Main {
 	public static void main(String[] args) {
 		Gtk.init(args);
 		Notify.init("janot");
-		Notification notification = Notify.createNotification();
+		Notification notification = new Notification();
 		notification.update("Test", "Test notification", "dialog-information");
 		notification.addAction("test-action", "Test", action -> quit());
 		notification.show();
-		Window window = Gtk.createWindow();
+		Window window = new Window();
 		window.setTitle("Test Window");
 		window.setDestroyCallback(Main::quit);
 		window.showAll();

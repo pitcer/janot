@@ -24,9 +24,21 @@
 
 package pl.pitcer.janot.gtk;
 
-public interface Widget {
+import java.nio.ByteBuffer;
 
-	void showAll();
+public class Widget  {
 
-	void setDestroyCallback(DestroyCallback callback);
+	protected ByteBuffer widget;
+
+	protected Widget(ByteBuffer widget) {
+		this.widget = widget;
+	}
+
+	public void showAll() {
+		NativeWidget.showAll(this.widget);
+	}
+
+	public void setDestroyCallback(DestroyCallback callback) {
+		NativeWidget.setDestroyCallback(this.widget, callback);
+	}
 }

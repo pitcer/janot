@@ -49,12 +49,4 @@ public final class Notify {
 	public static void setAppName(String appName) {
 		NativeNotify.setAppName(appName);
 	}
-
-	public static Notification createNotification() {
-		return new NotificationImpl();
-	}
-
-	public static Notification createNotification(String summary, String body, String icon) {
-		return new NotificationImpl(summary, body, icon);
-	}
 }
